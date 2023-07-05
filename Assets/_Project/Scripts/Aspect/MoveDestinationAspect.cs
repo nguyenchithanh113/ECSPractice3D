@@ -8,7 +8,7 @@ using UnityEngine;
 
 public readonly partial struct MoveDestinationAspect : IAspect
 {
-    private readonly Entity _entity;
+    public readonly Entity entity;
 
     private readonly RefRW<LocalTransform> _transform;
     public readonly RefRO<MoveSpeedComponent> speedComponent;
@@ -16,12 +16,12 @@ public readonly partial struct MoveDestinationAspect : IAspect
 
     public bool HasReachedDestination()
     {
-        return math.distancesq(_transform.ValueRO.Position, destinationComponent.ValueRO.destination) <= 0.1f * 0.1f;
+        return math.distancesq(_transform.ValueRO.Position, destinationComponent.ValueRO.destination) <= 0.5f * 0.5f;
     }
 
     public void Update(float dt)
     {
-        float3 dir = math.normalize(destinationComponent.ValueRO.destination - _transform.ValueRO.Position);
+        float3 dir = math.normalizesafe(destinationComponent.ValueRO.destination - _transform.ValueRO.Position);
         _transform.ValueRW.Position += dir * speedComponent.ValueRO.speed * dt;
     }
 }

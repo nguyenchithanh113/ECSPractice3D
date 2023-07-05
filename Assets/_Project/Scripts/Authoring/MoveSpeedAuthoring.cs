@@ -13,7 +13,7 @@ public class MoveSpeedAuthoringBaker : Baker<MoveSpeedAuthoring>
 {
     public override void Bake(MoveSpeedAuthoring authoring)
     {
-        AddComponent(new MoveSpeedComponent()
+        AddComponent(GetEntity(TransformUsageFlags.Dynamic),new MoveSpeedComponent()
         {
             speed = authoring.speed
         });

@@ -13,6 +13,6 @@ public class DestinationAuthoringBaker : Baker<DestinationAuthoring>
 {
     public override void Bake(DestinationAuthoring authoring)
     {
-        AddComponent(new DestinationComponent());
+        AddComponent(GetEntity(TransformUsageFlags.Dynamic) , new DestinationComponent());
     }
 }
