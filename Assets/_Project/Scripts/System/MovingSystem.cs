@@ -23,6 +23,8 @@ public partial struct MovingSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
+        double startTime = SystemAPI.Time.ElapsedTime;
+        
         int moveAspectCount = 0;
 
         foreach (var VARIABLE in SystemAPI.Query<MoveDestinationAspect>())
@@ -53,6 +55,10 @@ public partial struct MovingSystem : ISystem
         checkJobHandle.Complete();
 
         rands.Dispose();
+
+        double endTime = SystemAPI.Time.ElapsedTime;
+        
+        //Debug.Log(string.Format(((endTime - startTime) * 1000).ToString()));
 
     }
     
