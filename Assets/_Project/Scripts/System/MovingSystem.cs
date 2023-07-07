@@ -9,14 +9,18 @@ using Unity.Mathematics;
 using UnityEngine;
 using Random = Unity.Mathematics.Random;
 
+[BurstCompile]
 public partial struct MovingSystem : ISystem
 {
     private Random _random;
+    
+    [BurstCompile]
     public void OnCreate(ref SystemState state)
     {
         _random = new Random(1);
     }
 
+    [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
         int moveAspectCount = 0;
@@ -52,6 +56,7 @@ public partial struct MovingSystem : ISystem
 
     }
     
+    [BurstCompile]
     public float3 GetRandomPosition()
     {
         return new float3(
@@ -67,6 +72,8 @@ public partial struct MovingSystem : ISystem
 public partial struct MoveJob : IJobEntity
 {
     public float dt;
+    
+    [BurstCompile]
     public void Execute(MoveDestinationAspect moveAspect)
     {
         moveAspect.Update(dt);
@@ -76,6 +83,8 @@ public partial struct MoveJob : IJobEntity
 public partial struct  CheckReachDestiantionJob : IJobEntity
 {
     public NativeArray<float3> randPosition;
+    
+    [BurstCompile]
     public void Execute([EntityIndexInQuery] int entityIndexInQuery, MoveDestinationAspect moveAspect)
     {
         if (moveAspect.HasReachedDestination())
