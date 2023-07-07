@@ -34,7 +34,7 @@ public partial struct SpawnerSystem : ISystem, ISystemStartStop
             .CreateCommandBuffer(state.WorldUnmanaged);
 
         
-        for (int i = 0; i < 1000; i++)
+        for (int i = 0; i < 300; i++)
         {
             Entity entity = commandBuffer.Instantiate(_spawnerData.entityPrefab);
             commandBuffer.SetComponent(entity, new MoveSpeedComponent()
